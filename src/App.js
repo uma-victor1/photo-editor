@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import './App.css';
 import Slider from './Slider'
 import SidebarItem from './SidebarItem'
@@ -90,19 +90,20 @@ function App() {
     })
   }
 
-  function getImageStyle() {
+  const getImageStyle = useMemo (function getImageStyle() {
     const filters = options.map(option => {
       return `${option.property}(${option.value}${option.unit})`
     })
 
     return { filter: filters.join(' ') }
-  }
+  }, [options])
 
-  console.log(getImageStyle())
+
+  console.log(getImageStyle)
 
   return (
     <div className='container'>
-      <div className="main-image" style={getImageStyle()} />
+      <div className="main-image" style={getImageStyle} />
       <div className='sidebar'>
         {options.map((option, index) => {
           return (<SidebarItem 
